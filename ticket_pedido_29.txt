@@ -1,0 +1,15 @@
+=========== COFFEECRAFT ===========
+Pedido #29  -  20/11/2026 21:59
+Cliente: Hillary Morales
+Estado:  Pendiente
+-----------------------------------
+1. Latte Grande Caliente | Grano: Geisha (Panamá) | Agregados: Leche avena, Jarabe de vainilla | Espuma: 80 ml
+     S/ 24.60   (10 min)
+2. Frappé Mediano Frío | Grano: Typica (Perú) | Cubos de hielo: 6
+     S/ 16.70   (6 min)
+-----------------------------------
+Subtotal:   S/ 41.30
+Cliente frecuente (10%): -S/ 4.13
+TOTAL:      S/ 37.17
+Entrega estimada: 16 min
+===================================
