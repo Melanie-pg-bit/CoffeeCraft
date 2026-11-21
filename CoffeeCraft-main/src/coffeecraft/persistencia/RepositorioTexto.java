@@ -99,28 +99,35 @@ public class RepositorioTexto {
         }
     }
 
-    /** Escribe un ticket legible del pedido. */
-    public static void exportarTicket(Usuario cliente, Pedido pedido, File archivo) throws IOException {
+/** Construye el texto del ticket (se usa para mostrarlo en pantalla y para guardarlo en un archivo). */
+public static String generarTicket(Usuario cliente, Pedido pedido) {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        java.util.Locale us = java.util.Locale.US;
+        StringBuilder sb = new StringBuilder();
+        sb.append("=========== COFFEECRAFT ===========\n");
+        sb.append("Pedido #").append(pedido.getId()).append("  -  ").append(formato.format(pedido.getFecha())).append("\n");
+        sb.append("Cliente: ").append(cliente.getNombre()).append("\n");
+        sb.append("Estado:  ").append(pedido.getEstado()).append("\n");
+        sb.append("-----------------------------------\n");
+        int n = 1;
+        for (Bebida b : pedido.getBebidas()) {
+            sb.append(n++).append(". ").append(b.getDescripcion()).append("\n");
+            sb.append(String.format(us, "     S/ %.2f   (%d min)%n", b.calcularPrecio(), b.calcularTiempo()).replace(System.lineSeparator(), "\n"));
+        }
+        sb.append("-----------------------------------\n");
+        sb.append(String.format(us, "Subtotal:   S/ %.2f", pedido.getSubtotal())).append("\n");
+        sb.append(String.format(us, "%s: -S/ %.2f", pedido.getDescuento().getDescripcion(), pedido.getMontoDescuento())).append("\n");
+        sb.append(String.format(us, "TOTAL:      S/ %.2f", pedido.calcularTotal())).append("\n");
+        sb.append("Entrega estimada: ").append(pedido.calcularTiempoEntrega()).append(" min\n");
+        sb.append("===================================\n");
+        return sb.toString();
+    }
+
+    /** Escribe un ticket legible del pedido en un archivo de texto. */
+    public static void exportarTicket(Usuario cliente, Pedido pedido, File archivo) throws IOException {
         try (PrintWriter salida = new PrintWriter(
                 new OutputStreamWriter(new FileOutputStream(archivo), CODIFICACION))) {
-            salida.println("=========== COFFEECRAFT ===========");
-            salida.println("Pedido #" + pedido.getId() + "  -  " + formato.format(pedido.getFecha()));
-            salida.println("Cliente: " + cliente.getNombre());
-            salida.println("Estado:  " + pedido.getEstado());
-            salida.println("-----------------------------------");
-            int n = 1;
-            for (Bebida b : pedido.getBebidas()) {
-                salida.println(n++ + ". " + b.getDescripcion());
-                salida.println(String.format("     S/ %.2f   (%d min)", b.calcularPrecio(), b.calcularTiempo()));
-            }
-            salida.println("-----------------------------------");
-            salida.println(String.format("Subtotal:   S/ %.2f", pedido.getSubtotal()));
-            salida.println(String.format("%s: -S/ %.2f", pedido.getDescuento().getDescripcion(),
-                    pedido.getMontoDescuento()));
-            salida.println(String.format("TOTAL:      S/ %.2f", pedido.calcularTotal()));
-            salida.println("Entrega estimada: " + pedido.calcularTiempoEntrega() + " min");
-            salida.println("===================================");
+            salida.print(generarTicket(cliente, pedido).replace("\n", System.lineSeparator()));
         }
     }
 }
