@@ -1,6 +1,8 @@
 package coffeecraft.gui;
 
-/** Permite que una pantalla pida mostrar otra sin conocer la ventana principal. */
-public interface Navegador {
-    void ir(String pantalla);
+import coffeecraft.modelo.TipoBebida;
+
+/** Pantalla capaz de empezar a personalizar un tipo de bebida (lo usa el menú). */
+public interface Personalizador {
+    void personalizar(TipoBebida tipo);
 }
