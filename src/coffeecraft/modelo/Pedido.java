@@ -101,15 +101,12 @@ public class Pedido implements Serializable {
     public int getId() {
         return id;
     }
-
     public Date getFecha() {
         return fecha;
     }
-
     public EstadoPedido getEstado() {
         return estado;
     }
-
     public ArrayList<Bebida> getBebidas() {
         return new ArrayList<>(bebidas);
     }

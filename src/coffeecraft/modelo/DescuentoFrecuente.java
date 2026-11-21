@@ -15,17 +15,14 @@ public class DescuentoFrecuente implements Descuento {
     public double getPorcentaje() {
         return porcentaje;
     }
-
     @Override
     public double aplicar(double total) {
         return total - (total * porcentaje / 100.0);
     }
-
     @Override
     public String getDescripcion() {
         return String.format("Cliente frecuente (%.0f%%)", porcentaje);
     }
-
     @Override
     public String toString() {
         return getDescripcion();

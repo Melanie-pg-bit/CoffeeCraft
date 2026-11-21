@@ -109,7 +109,6 @@ public class Reportes {
             }
         }
     }
-
     /** Ordenamiento por selección: clientes de mayor a menor gasto total. */
     public static void ordenarPorGasto(Usuario[] a) {
         for (int i = 0; i < a.length - 1; i++) {
